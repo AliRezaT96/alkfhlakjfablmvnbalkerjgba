@@ -26,6 +26,15 @@ libritts_datasets = {
         "other": ["LibriTTS/dev-other"]
     },
 }
+###########################################################################################################################################
+TIMIT = {
+  "TRAIN": ["TIMIT/TRAIN/DR1", "TIMIT/TRAIN/DR2","TIMIT/TRAIN/DR3","TIMIT/TRAIN/DR4",
+  "TIMIT/TRAIN/DR5","TIMIT/TRAIN/DR6","TIMIT/TRAIN/DR7","TIMIT/TRAIN/DR8"],
+  "TEST" : ["TIMIT/TEST/DR1", "TIMIT/TEST/DR2","TIMIT/TEST/DR3","TIMIT/TEST/DR4",
+  "TIMIT/TEST/DR5","TIMIT/TEST/DR6","TIMIT/TEST/DR7","TIMIT/TEST/DR8"]
+
+}
+#############################################################################################################################################
 voxceleb_datasets = {
     "voxceleb1" : {
         "train": ["VoxCeleb1/wav"],
