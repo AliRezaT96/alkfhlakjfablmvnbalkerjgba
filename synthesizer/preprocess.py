@@ -82,6 +82,7 @@ def preprocess_speaker(speaker_dir, out_dir: Path, skip_existing: bool, hparams,
             with text_fpath.open("r") as text_file:
                 text = "".join([line for line in text_file])
                 text = text.replace("\"", "")
+                text = " ".join(text.split()[2:])
                 text = text.strip()
 
             # Process the utterance
