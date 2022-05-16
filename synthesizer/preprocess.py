@@ -84,9 +84,10 @@ def preprocess_speaker(speaker_dir, out_dir: Path, skip_existing: bool, hparams,
                 text = text.replace("\"", "")
                 text = " ".join(text.split()[2:])
                 text = text.strip()
+            print(wav_fpath.with_suffix(""))
 
             # Process the utterance
-            metadata.append(process_utterance(wav, text, out_dir, str(wav_fpath.with_suffix("").name),
+            metadata.append(process_utterance(wav, text, out_dir, str(speaker_dir.with_suffix("").name)+str(wav_fpath.with_suffix("").name),
                                                       skip_existing, hparams))
     else:
         print("not written for alinged")
@@ -245,4 +246,3 @@ def create_embeddings(synthesizer_root: Path, encoder_model_fpath: Path, n_proce
     func = partial(embed_utterance, encoder_model_fpath=encoder_model_fpath)
     job = Pool(n_processes).imap(func, fpaths)
     list(tqdm(job, "Embedding", len(fpaths), unit="utterances"))
-
