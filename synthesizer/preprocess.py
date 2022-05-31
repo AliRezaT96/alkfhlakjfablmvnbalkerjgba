@@ -74,15 +74,34 @@ def preprocess_speaker(speaker_dir, out_dir: Path, skip_existing: bool, hparams,
 
                 # Get the corresponding text
                 # Check for .txt (for compatibility with other datasets)
-            text_fpath = wav_fpath.with_suffix(".TXT")
-            if not text_fpath.exists():
+            #text_fpath = wav_fpath.with_suffix(".TXT")
+            #if not text_fpath.exists():
                 # Check for .normalized.txt (LibriTTS)
-                text_fpath = wav_fpath.with_suffix(".normalized.txt")
+            #    text_fpath = wav_fpath.with_suffix(".normalized.txt")
+            #    assert text_fpath.exists()
+            #with text_fpath.open("r") as text_file:
+            #    text = "".join([line for line in text_file])
+            #    text = text.replace("\"", "")
+            #    text = " ".join(text.split()[2:])
+            #    text = text.strip()
+            #print(wav_fpath.with_suffix(""))
+
+            #phoneme
+
+            phone_fpath = wav_fpath.with_suffix(".PHN")
+            if not phone_fpath.exists():
+                # Check for .normalized.txt (LibriTTS)
+                phone_fpath = wav_fpath.with_suffix(".normalized.txt")
                 assert text_fpath.exists()
-            with text_fpath.open("r") as text_file:
-                text = "".join([line for line in text_file])
+            with phone_fpath.open("r") as text_file:
+                text = " ".join([line for line in text_file])
                 text = text.replace("\"", "")
-                text = " ".join(text.split()[2:])
+                text = text.split()
+                t = []
+                for w in range(len(text)):
+                  if (w+1) % 3 == 0:
+                    t.append(text[w])
+                text = " ".join(t)
                 text = text.strip()
             print(wav_fpath.with_suffix(""))
 
