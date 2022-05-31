@@ -8,7 +8,7 @@ from synthesizer.synthesizer_dataset import SynthesizerDataset, collate_synthesi
 from synthesizer.utils import ValueWindow, data_parallel_workaround
 from synthesizer.utils.plot import plot_spectrogram
 from synthesizer.utils.symbols import symbols
-from synthesizer.utils.text import sequence_to_text, sequence_to_phone
+from synthesizer.utils.text import sequence_to_text, sequence_to_phone, phones
 from vocoder.display import *
 from datetime import datetime
 import numpy as np
@@ -68,7 +68,8 @@ def train(run_id: str, syn_dir: str, models_dir: str, save_every: int,
     # Instantiate Tacotron Model
     print("\nInitialising Tacotron Model...\n")
     model = Tacotron(embed_dims=hparams.tts_embed_dims,
-                     num_chars=len(symbols),
+                     #num_chars=len(symbols),
+                     num_chars=len(phones),
                      encoder_dims=hparams.tts_encoder_dims,
                      decoder_dims=hparams.tts_decoder_dims,
                      n_mels=hparams.num_mels,
