@@ -212,7 +212,7 @@ def process_utterance(wav: np.ndarray, text: str, out_dir: Path, basename: str,
     return wav_fpath.name, mel_fpath.name, "embed-%s.npy" % basename, len(wav), mel_frames, text
 
 
-def embed_utterance(fpaths, encoder_model_fpath, no_encoder = True):
+def embed_utterance(fpaths, encoder_model_fpath, no_encoder = False):
   wav_fpath, embed_fpath = fpaths
   if no_encoder:
     np.save(embed_fpath, [], allow_pickle=False)
