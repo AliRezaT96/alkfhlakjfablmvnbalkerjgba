@@ -8,7 +8,7 @@ from synthesizer.synthesizer_dataset import SynthesizerDataset, collate_synthesi
 from synthesizer.utils import ValueWindow, data_parallel_workaround
 from synthesizer.utils.plot import plot_spectrogram
 from synthesizer.utils.symbols import symbols
-from synthesizer.utils.text import sequence_to_text
+from synthesizer.utils.text import sequence_to_text, sequence_to_phone
 from vocoder.display import *
 from datetime import datetime
 import numpy as np
@@ -265,4 +265,5 @@ def eval_model(attention, mel_prediction, target_spectrogram, input_seq, step,
     plot_spectrogram(mel_prediction, str(spec_fpath), title=title_str,
                      target_spectrogram=target_spectrogram,
                      max_len=target_spectrogram.size // hparams.num_mels)
-    print("Input at step {}: {}".format(step, sequence_to_text(input_seq)))
+    #print("Input at step {}: {}".format(step, sequence_to_text(input_seq)))
+    print("Input at step {}: {}".format(step, sequence_to_phone(input_seq)))
