@@ -22,8 +22,7 @@ def np_now(x: torch.Tensor): return x.detach().cpu().numpy()
 def time_string():
     return datetime.now().strftime("%Y-%m-%d %H:%M")
 
-def train(run_id: str, syn_dir: str, models_dir: str, save_every: int,
-         backup_every: int, force_restart:bool, hparams):
+def test(run_id: str, syn_dir: str, models_dir: str, hparams):
 
     syn_dir = Path(syn_dir)
     models_dir = Path(models_dir)
@@ -49,8 +48,8 @@ def train(run_id: str, syn_dir: str, models_dir: str, save_every: int,
     
     # Book keeping
     step = 0
-    time_window = ValueWindow(100)
-    loss_window = ValueWindow(100)
+    time_window = []
+    loss_window = []
     
     
     # From WaveRNN/train_tacotron.py
@@ -120,15 +119,6 @@ def train(run_id: str, syn_dir: str, models_dir: str, save_every: int,
 
         model.r = r
 
-        # Begin the training
-        simple_table([(f"Steps with r={r}", str(training_steps // 1000) + "k Steps"),
-                      ("Batch Size", batch_size),
-                      ("Learning Rate", lr),
-                      ("Outputs/Step (r)", model.r)])
-
-        for p in optimizer.param_groups:
-            p["lr"] = lr
-
         data_loader = DataLoader(dataset,
                                  collate_fn=lambda batch: collate_synthesizer(batch, r, hparams),
                                  batch_size=batch_size,
@@ -178,7 +168,7 @@ def train(run_id: str, syn_dir: str, models_dir: str, save_every: int,
                 step = model.get_step()
                 k = step // 1000
 
-                msg = f"| Epoch: {epoch}/{epochs} ({i}/{steps_per_epoch}) | Loss: {loss_window.average:#.4} | {1./time_window.average:#.2} steps/s | Step: {k}k | "
+                msg = f"| Epoch: {epoch}/{epochs} ({i}/{steps_per_epoch}) | Loss: {sum(loss_window)/len(loss_window):#.4} | Step: {k}k | "
                 stream(msg)
 				
 
