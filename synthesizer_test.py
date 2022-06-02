@@ -1,5 +1,5 @@
 from synthesizer.hparams import hparams
-from synthesizer.train import train,test
+from synthesizer.test import test
 from utils.argutils import print_args
 import argparse
 
